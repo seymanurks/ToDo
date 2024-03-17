@@ -21,14 +21,20 @@ const App = () => {
     setTaskItems([...taskItems, { text: task, completed: false }]);
     setTask('');
     increaseCount();
-  };
+  }
 
   const handleCompleteTask = index => {
     const newTaskItems = [...taskItems];
     newTaskItems[index].completed = !newTaskItems[index].completed;
+
+    if (newTaskItems[index].completed) {
+      decreaseCount();
+    } else {
+      increaseCount();
+    }
+
     setTaskItems(newTaskItems);
-    decreaseCount();
-  };
+  }
 
 
   return(
@@ -46,7 +52,7 @@ const App = () => {
             onPress={() => handleCompleteTask(index)}
             style={[
               styles.task,
-              item.completed ? styles.taskCompleted : null, // Tamamlanmış görevler için ek stil
+              item.completed ? styles.taskCompleted : null
             ]}>
             <Text
               style={
