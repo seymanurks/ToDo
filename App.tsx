@@ -10,7 +10,8 @@ const App = () => {
   }
 
   function decreaseCount() {
-    setCount(count-1)
+    if (count > 0) {
+    setCount(count-1) }
   }
 
   const [task, setTask] = useState('');
