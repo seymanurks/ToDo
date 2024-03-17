@@ -9,31 +9,54 @@ const App = () => {
     setCount(count+1)
   }
 
+  function decreaseCount() {
+    setCount(count-1)
+  }
+
   const [task, setTask] = useState('');
   const [taskItems, setTaskItems] = useState([]);
 
   const handleAddTask = () => {
-    setTaskItems([...taskItems, task]);
+    setTaskItems([...taskItems, { text: task, completed: false }]);
     setTask('');
     increaseCount();
   };
 
+  const handleCompleteTask = index => {
+    const newTaskItems = [...taskItems];
+    newTaskItems[index].completed = !newTaskItems[index].completed;
+    setTaskItems(newTaskItems);
+    decreaseCount();
+  };
+
+
   return(
     <SafeAreaView style = {styles.container}>
       <View style = {styles.top_container}>
-        <Text style= {styles.title}>ToDo</Text>
+        <Text style= {styles.title}>To Do</Text>
         <Text style= {styles.title}>{count}</Text>
       </View>
       
       <ScrollView style={styles.taskContainer}>
-        {taskItems.map((item, index) => {
-          return (
-            <View key={index} style={styles.task}>
-              <Text style={styles.taskText}>{item}</Text>
-            </View>
-          );
-        })}
-      </ScrollView>  
+      {taskItems.map((item, index) => {
+        return (
+          <TouchableOpacity
+            key={index}
+            onPress={() => handleCompleteTask(index)}
+            style={[
+              styles.task,
+              item.completed ? styles.taskCompleted : null, // Tamamlanmış görevler için ek stil
+            ]}>
+            <Text
+              style={
+                item.completed ? styles.taskTextCompleted : styles.taskText
+              }>
+              {item.text}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
+    </ScrollView>
 
       <View style = {styles.bottom_container}>
         <View style = {styles.todo_container}>
@@ -77,6 +100,14 @@ const styles = StyleSheet.create({
   },
   taskText: {
     color: "#D1E0D7",
+    fontSize: 18,
+  },
+  taskCompleted: {
+    backgroundColor: '#424874',
+  },
+  taskTextCompleted: {
+    textDecorationLine: 'line-through',
+    color: '#D1E0D7',
     fontSize: 18,
   },
   top_container: {
