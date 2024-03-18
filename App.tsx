@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { SafeAreaView, ScrollView, Text, View, FlatList, TextInput, Button, TouchableOpacity, StyleSheet, AppState} from 'react-native';
+import { SafeAreaView, ScrollView, Text, View, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 
 const App = () => {
 
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   taskCompleted: {
-    backgroundColor: '#424874',
+    backgroundColor: '#424874'
   },
   taskTextCompleted: {
     textDecorationLine: 'line-through',
